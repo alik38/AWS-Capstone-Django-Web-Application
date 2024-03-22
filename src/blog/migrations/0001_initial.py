@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('status', models.CharField(choices=[('d', 'Draft'), ('p', 'Published')], default='d', max_length=10)),
                 ('slug', models.SlugField(blank=True, unique=True)),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('category', models.ForeignKey('Category', on_delete=django.db.models.deletion.PROTECT, related_name='cats', to='blog.category')),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='cats', to='blog.category')),
             ],
         ),
         migrations.CreateModel(
