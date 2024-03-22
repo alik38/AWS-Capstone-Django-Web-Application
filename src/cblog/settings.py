@@ -107,6 +107,9 @@ DATABASES = {
     }
 }
 
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -158,7 +161,7 @@ LOGIN_URL = "login"
 
 AWS_STORAGE_BUCKET_NAME = 'awscapstones-ali-blog' # please enter your s3 bucket name
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-AWS_S3_REGION_NAME = "us-east-1" # please enter your s3 region 
+AWS_S3_REGION_NAME = "" # please enter your s3 region 
 AWS_DEFAULT_ACL = 'public-read'
 
 AWS_LOCATION = 'static'
