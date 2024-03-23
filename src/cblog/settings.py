@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
-import boto3
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,36 +78,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'cblog.wsgi.application'
 
-def get_ssm_parameters():
-    ssm = boto3.client('ssm', region_name='us-east-1')
 
-    # AWS SSM Parametr define
-    username_param = ssm.get_parameter(Name='/ali/capstone/username')
-    password_param = ssm.get_parameter(Name="/ali/capstone/password", WithDecryption=True)
-
-
-    # Parametre retrieve
-    username = username_param['Parameter']['Value']
-    password = password_param['Parameter']['Value']
-
-    return username, password
-
-# SSM put
-db_username, db_password = get_ssm_parameters()
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'clarusway',
-        'USER': db_username,
-        'PASSWORD': db_password,
-        'HOST': 'aws-capstone-rds.cvljhq1wem1r.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
+        'NAME': '', # database name in RDS is written here
+        'USER': '', # database master username in RDS is written here
+        'PASSWORD': config('PASSWORD'),
+        'HOST': '',  # database endpoint is written here
+        'PORT': '' # database port is written here
     }
 }
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -159,7 +143,7 @@ LOGIN_REDIRECT_URL = "blog:list"
 LOGIN_URL = "login"
 
 
-AWS_STORAGE_BUCKET_NAME = 'awscapstones-ali-blog' # please enter your s3 bucket name
+AWS_STORAGE_BUCKET_NAME = '' # please enter your s3 bucket name
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_REGION_NAME = "" # please enter your s3 region 
 AWS_DEFAULT_ACL = 'public-read'
